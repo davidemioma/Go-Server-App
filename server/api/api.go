@@ -41,7 +41,7 @@ func (app *application) mount() http.Handler {
 	}))
 
 	// Routes
-	r.Route("v1", func(r chi.Router) {
+	r.Route("/v1", func(r chi.Router) {
 		r.Get("/health", handlerReadiness)
 
 		r.Get("/err", handlerErr)
