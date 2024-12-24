@@ -1,6 +1,7 @@
 package main
 
 import (
+	"go-server-tutorial/internal/database"
 	"net/http"
 	"time"
 
@@ -11,8 +12,13 @@ import (
 
 type config struct {}
 
+type storage struct {
+	DB *database.Queries
+}
+
 type application struct {
 	config  config
+	storage storage
 }
 
 // Handle Routes

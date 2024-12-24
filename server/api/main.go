@@ -6,6 +6,8 @@
 package main
 
 import (
+	"database/sql"
+	"go-server-tutorial/internal/database"
 	"log"
 	"os"
 
@@ -21,10 +23,28 @@ func main() {
 	    log.Fatal("PORT not found")
 	}
 
-	cfg := &config{}
+	// Postgres DB
+	dbUrl := os.Getenv("DATABASE_URL")
 
-	app := &application{
-		config: *cfg,
+	if dbUrl == ""{
+		log.Fatal("DATABASE_URL not found")
+	}
+
+	db, err := sql.Open("postgres", dbUrl)
+
+	if err != nil {
+		log.Fatal("Can't connect to database:", err)
+	}
+
+	cfg := config{}
+
+	storage := storage{
+		DB: database.New(db),
+	}
+
+	app := application{
+		config: cfg,
+		storage: storage,
 	}
 
 	r:= app.mount()
