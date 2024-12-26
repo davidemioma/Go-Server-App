@@ -51,6 +51,8 @@ func (app *application) mount() http.Handler {
 		r.Get("/health", handlerReadiness)
 
 		r.Get("/err", handlerErr)
+
+		r.Post("/users/create", app.createUserHandler)
 	})
 
 	return r

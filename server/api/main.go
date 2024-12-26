@@ -12,6 +12,8 @@ import (
 	"os"
 
 	"github.com/lpernett/godotenv"
+
+	_ "github.com/lib/pq"
 )
 
 func main() {
